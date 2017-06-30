@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.root.mapper.ReplyMapper">
+
+	<insert id="replyInsert" parameterType="ReplyVO">
+		insert into reply_table (r_no, r_boardNo, r_writer, r_memberId, r_ip, r_content)
+		values(reply_seq.nextval, #{r_boardNo}, #{r_writer}, #{r_memberId, jdbcType=VARCHAR}, #{r_ip}, #{r_content})
+	</insert>
+	
+	<select id="replySelect" parameterType="ReplyVO" resultType="ReplyVO">
+ 	SELECT AA.*
+        FROM(
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY r_no DESC) RNUM,
+            R_BOARDNO,R_CONTENT,R_IP,R_MEMBERID,R_NO,R_REGDATE,R_WRITER
+        FROM reply_table
+       WHERE r_boardNo=#{r_boardNo}
+       ) AA
+	WHERE AA.rnum BETWEEN #{pageStart} AND #{pageStart}+4
+
+	</select> 
+
+	<select id="replyCount" resultType="int">
+		select count(*) from reply_table where r_boardNo=#{boardNo}
+	</select>
+	
+	<delete id="replyDelete" parameterType="int">
+		delete from reply_table
+		where r_no = #{r_no}
+	</delete>
+	
+	<select id="replyUpdateWindow" parameterType="int" resultType="ReplyVO">
+		select * from reply_table
+		where r_no = #{r_no}
+	</select>
+	
+	<update id="replyUpdate" parameterType="ReplyVO">
+		update reply_table
+		set r_content = #{r_content},
+			r_regdate = sysdate
+		where r_no = #{r_no}
+	</update>
+</mapper>

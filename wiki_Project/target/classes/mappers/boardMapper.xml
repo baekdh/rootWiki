@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace = "com.root.mapper.BoardMapper">
+
+	<select id="searchBoard" parameterType="String" resultType="BoardVO">
+		select boardNo, title, b_content content, ip, regdate, memberId
+		from board where title like '%'||#{search}||'%'
+	</select>
+	
+	<insert id="writeBoard" parameterType="BoardVO">
+		insert into board values(board_seq.nextval, #{title}, #{content},
+			 #{ip}, sysdate, #{memberId, jdbcType=VARCHAR})
+		<selectKey keyProperty="boardNo" resultType="int" order="AFTER">
+			select board_seq.currval from dual
+		</selectKey>
+	</insert>
+	
+	<!-- 제목 중복체크 -->
+	<select id="titleCheck" parameterType="String" resultType="int">
+		select count(*) from board where title=#{title}
+	</select>
+	
+	
+	<select id = "getBoard" parameterType="int" resultType="BoardVO">
+		select boardNo, title, b_content content, ip, regdate, memberId 
+				from board where boardNo = #{boardNo}
+	</select>
+	
+	<select id = "getBackupBoard" parameterType="int" resultType="BackupBoardVO">
+		select backupNo,boardNo,purpose, title, content, ip, regdate, memberId 
+				from backupboard where backupNo=#{backupNo}
+	</select>
+	
+	<!--원본 백업테이블에 저장-->
+	<insert id="writeBackupBoard" parameterType="BackupBoardVO">
+		insert into backupboard (backupNo,purpose,title, content, ip, regdate, memberId,boardNo)
+		select backup_seq.NEXTVAL,#{purpose},title,b_content,ip, regdate,memberId,boardNo from board 
+		where boardNo = #{boardNo}
+	</insert>
+	
+	<!-- 추가 :롤백시 백업보드내용을 보드에 입력-->
+	<update id="rollback" parameterType="BackupBoardVO">
+		update board
+		set b_content=(select content from backupBoard where backupNo=#{backupNo}),
+			regdate = sysdate
+		where boardNo=#{boardNo}
+	</update>
+	<!-- board테이블 수정 -->
+	<update id="updateBoard" parameterType="BoardVO">
+		update board
+		set b_content = #{content}, ip=#{ip}, memberId= #{memberId, jdbcType=VARCHAR},
+			regdate = sysdate
+		where boardNo = #{boardNo}
+	</update>
+	<!-- 수정끝 -->
+	
+ 	<!-- 원본+수정본 boardNO같은거 모아서 리스트로 보여주기 -->
+	<select id = "getBackupList" resultType="BackupBoardVO">
+		select backupNo, purpose, title, content, ip,
+			   regdate, memberID, boardNo
+				from backupBoard
+				where boardNo = #{boardNo}
+				order by backupNo desc
+	</select>
+	
+	<select id = "searchBackupBoard" resultType="BackupBoardVO">
+		select backupNo, purpose, title, content, ip,
+			   regdate, memberID, boardNo
+				from backupBoard
+				where title like '%'||#{search}||'%'
+				order by backupNo desc
+	</select>
+	
+	<!-- 수정 -->
+	<insert id="setBackupHit">
+		update hit_table
+		set h_backupNo = #{backupNo}
+		where h_boardNo = #{boardNo}
+		and h_backupNo = 0 
+	<!-- 	insert into hit_table(h_backupNo)
+		values (#{backupno}) -->
+	</insert>
+	
+	<!-- 수정 및 추가 -->
+	<!-- 수정 : and h_backupNO = 0 추가 -->
+	<select id="getBoard_Hit" parameterType="int" resultType="int">
+		select count(h_boardNO)
+		from hit_table
+		where hit = 1
+		and h_boardNO = #{boardNo}	
+		and h_backupNO = 0
+	</select>
+	
+	<select id="getBoard_nonHit" parameterType="int" resultType="int">
+		select count(h_boardNO)
+		from hit_table
+		where hit = 0
+		and h_boardNO = #{boardNo}
+		and h_backupNO = 0
+	</select>
+	<!-- 수정 -->
+	
+	<!-- 추가 : 백업보드 hit/nonhit  -->
+	<select id="getBackup_Hit" parameterType="int" resultType="int">
+		select count(h_backupNo)
+		from hit_table
+		where hit = 1
+		and h_backupNO = #{backupNo}
+	</select>
+	
+	<select id="getBackup_nonHit" parameterType="int" resultType="int">
+		select count(h_backupNo)
+		from hit_table
+		where hit = 0
+		and h_backupNO = #{backupNo}
+	</select>
+	<!-- 수정 및 추가 /-->
+	
+	
+	<select id="checkHit1" parameterType="HitVO" resultType="HitVO">
+		select *
+		from hit_table
+		where h_boardNO = #{H_boardNO}
+		and h_backupNo = #{H_backupNo}
+		and h_memberID = #{H_memberID}
+		and h_IP = #{H_IP}	
+	</select>
+	
+	<select id="checkHit2" parameterType="HitVO" resultType="HitVO">
+		select *
+		from hit_table
+		where h_boardNO = #{H_boardNO}
+		and h_backupNo = #{H_backupNo}
+		and h_IP = #{H_IP}
+		and h_memberID is null
+	</select>
+	
+	<insert id="insertHit" parameterType="HitVO">
+		insert into hit_table
+		values(#{H_memberID, jdbcType=VARCHAR}, #{H_boardNO}, #{H_backupNo}, #{H_IP}, #{Hit})
+	</insert>
+	
+	<delete id="deleteHit1" parameterType="HitVO">
+		delete from hit_table
+		where h_boardNO = #{H_boardNO}
+		and h_IP = #{H_IP}
+		and h_memberID = #{H_memberID}
+	</delete>
+	
+	<delete id="deleteHit2" parameterType="HitVO">
+		delete from hit_table
+		where h_boardNO = #{H_boardNO}
+		and h_IP = #{H_IP}
+		and h_memberID is null
+	</delete>
+	
+	<select id="blockIPCheck" parameterType="String" resultType="int">
+		select count(*) from blockmember where ip = #{ip}
+	</select>
+	
+	<!-- 추가 -->
+	<update id="rollbackHit">
+		update hit_table
+		set h_backupNo = 0
+		where h_backupNo = #{backupNo}
+	</update>
+	
+	
+</mapper>

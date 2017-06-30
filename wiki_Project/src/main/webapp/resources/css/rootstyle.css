@@ -1,0 +1,555 @@
+@CHARSET "UTF-8";
+
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #dcdcdc;
+   	overflow-y: scroll;
+}
+a:LINK{
+	text-decoration:none;
+	font-weight : bold;
+	font-size : 20px;
+	color: #174709;
+}
+a:VISITED{
+	text-decoration:none;
+	font-weight : bold;
+	font-size : 20px;
+	color: #174709;
+}
+
+/* #footer{
+   overflow:hidden;
+   bottom:0;
+   height:50px;
+   width:100%;
+   text-align:center;
+   margin-left:0px;
+   margin-bottom:-1px;
+   
+}
+#header {
+	margin-left:10%;
+	margin-right:10%;
+}
+#footer {
+	bottom:0;
+	width:80%;
+	height:50px;
+	margin-left:10%;
+	margin-right:10%;
+	margin-bottom:5%;
+} */
+
+*{
+	box-sizing:border-box;
+}
+.container {
+	width:1000px;
+	height:500px;
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+	padding-bottom:50px;
+}
+#main #logo {
+	margin-left:10%;
+}
+#memberVO {
+	height:80px;
+}
+.input_button {
+	border:0;
+	background: #449e3f;
+	padding: 5px 8px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 10pt;
+	text-decoration: none;
+	vertical-align: middle;
+	margin:3px;
+	outline: none;
+	cursor:pointer;
+}
+
+/*-----------  header.jsp -----------------*/
+#header{
+	overflow:hidden;
+	background-color: #fff;
+	width:100%;
+	height:auto;
+	margin-bottom:20px;
+	border-bottom:1px solid #828282;
+}
+
+#search_str1{
+	width:240px;
+    height: 30px;
+	float:left;
+    border-color: #174709;
+    font-size:10pt;
+    padding-left:15px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    border-width:1px;
+	outline: none;
+}
+#search_btn1{
+ 	border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    width: 55px;
+    height: 30px;
+	float:left;
+    border-color: #174709;
+    background-color: #174709;
+    color:#fff;
+    font-size:10pt;
+    margin-left:-10px;
+    border-width:1px;
+	cursor:pointer;
+}
+#header a {
+	float:left;
+	margin-left:20px;
+}
+#header #left_box{
+	display:inline-block;
+	float:left;
+	text-align:right;
+	width:400px;
+}
+#header #left_box a img:hover{
+	cursor:pointer; 
+}
+#header #right_box{
+	display:inline-block;
+	float:right;
+	text-align:right;
+	width:500px;
+	margin-right:80px;
+	margin-top:10px;
+}
+/*-----------  footer.jsp -----------------*/
+#footer{
+	overflow:hidden;
+	bottom:0;
+	height:120px;
+	width:100%;
+	background-color: #fff;
+	text-align:center;
+	margin-top:50px;
+	margin-left:0px;
+	margin-bottom:-1px;
+	border-top:1px solid #828282;
+	border-bottom:1px solid #828282;
+}
+.footer_content{
+	 font-size:12px;
+}
+
+/*-----------  main.jsp -----------------*/
+#main{
+   width:100%;
+   height:100%;
+   position:absolute;
+   overflow-y: scroll;
+}
+.login{
+	text-align : right;
+	margin-top:46px;
+	margin-right :70px;
+}
+.mainwiki{
+	margin-top : 95px;
+	text-align : center;
+}
+.box{
+	 margin-left: 35%;
+}	
+.container-4{
+	text-align : center;
+	overflow : hidden;
+
+}
+.container-4 input#search_str{
+	width: 48%;
+    height: 50px;
+    border-color: #174709;
+    font-size:10pt;
+    float:left;
+    padding-left:15px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+}
+.container-4 input.search_btn{
+	-webkit-border-top-right-radius:5px;
+    -webkit-border-bottom-right-radius:5px;
+    -moz-border-radius-topright:5px;
+    -moz-border-radius-bottomright:5px;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    
+    width: 55px;
+    height: 50px;
+    border-color: #174709;
+    background-color: #174709;
+    color:#fff;
+    font-size:10pt;
+    float:left;
+    margin-left:-44px;
+	cursor:pointer;
+    
+    -webkit-trasition:all .55s ease;
+	-moz-transition: all .55s ease;
+	-ms-transition: all .55s ease;
+	-o-transition: all .55s ease;
+	transition: all .55s ease;
+}
+	
+	
+/*--------------- login화면 --------------------*/
+
+.login-modal{
+	z-index:3;
+	display:none;
+	padding-top:100px;
+	position:fixed;
+	left:0;top:0;
+	width:100%;height:100%;
+	overflow:auto;
+	background-color:rgb(0,0,0);
+	background-color:rgba(0,25,0,0.2)
+}
+
+.login-modal-content{
+	margin:auto;
+	background-color:#fff;
+	position:relative;
+	padding:0;
+	outline:0;
+	width:500px;
+	height:250px;
+	border-radius:20px
+}
+
+.login-animate-top{
+	position:relative;
+	animation:animatetop 0.4s
+}
+
+@keyframes animatetop{
+	from{top:-300px;opacity:0} 
+	to{top:0;opacity:1}
+}
+
+.login-container,.login-panel{
+	padding:0.01em 16px;
+	background-color:rgb(0,0,0);
+	color:#fff;
+	border-radius:20px
+}
+.login-panel{
+	margin-top:16px;
+	margin-bottom:16px
+}
+
+.login-display-topright{position:absolute;right:0;top:0}
+
+.login-button{
+	/* margin-right:50px; */
+	margin: 0;
+	padding: 0;
+	font-size: 50px;
+}
+
+.login-button:hover{
+	color:#f00!important;
+	/* background-color:#ccc!important */
+}
+
+.loginbody{
+	padding-top:50px;
+	padding-left: 150px;
+}
+
+.login_box {
+	position:absolute;
+	margin:0 auto;
+	/* left:160px; */
+}
+.login_box .input_box {
+    margin-bottom:3px;
+	width:154px;
+}
+.login_box .btn_login {
+	position:absolute;
+	left:180px;
+	top:10px;
+    z-index: 1;
+    width: 67px;
+    height: 67px;
+}
+
+/*----------------마이페이지/회원가입 화면 ----------------*/
+
+.memberbody{
+    position: relative;
+    background: #f5f6f7;
+}	
+
+.mem_container{
+	position: relative;
+    width: 768px;
+    min-width: 460px;
+    height : 460px;
+    margin: 0 auto;
+}
+
+.mem_contentbox{
+	
+}
+
+.mem_content {
+    width: 460px!important;
+    margin: 0 auto!important;
+}
+
+.mem_row_group {
+    zoom: 1.2;
+    margin-bottom: 10px;
+    border: solid 1px #dadada;
+    background: #fff;
+}
+
+.mem_label{
+	width: 30%;
+	float: left;
+}
+
+.mem_inputDiv{
+	box-sizing: border-box;
+    padding: 11px 11px 11px 13px;
+    background: #fff;
+}
+
+/*-----------  search.jsp -----------------*/
+.content_box a:LINK{
+	text-decoration:none;
+	font-weight : bold;
+	font-size : 20px;
+	color: #5ABEF5;
+}
+.content_box a:VISITED{
+	text-decoration:none;
+	font-weight : bold;
+	font-size : 20px;
+	color: #3296D7;
+}
+
+/*-----------  history.jsp -----------------*/
+.content_box .history_table {
+	font-size:14px;
+}
+.content_box .history_table a {
+	font-size:14px;
+}
+
+/*------------------content------------------*/
+.content_box {
+	width:900px;
+	height:100%;
+	background-color:#fff;
+	padding:20px;
+	padding-top:50px;
+	padding-bottom:50px;
+	margin:auto;
+	font-family:굴림;
+	border:1px solid #b4b4b4;
+}
+.content_box .c_hit {
+	font-size:80%;
+	text-align:right;
+	float:right;
+}
+.content_box .c_table {
+	width:100%;
+}
+.content_box .right_box {
+	float:right;
+}
+
+.content_box .c_title {
+	float: left;
+	width: 70%;
+}
+
+.content_box .c_title h1 {
+	margin: 0;
+}
+
+.content_box .c_content {
+	margin-top: 80px;
+}
+.content_box .c_reply {
+	margin-top:130px;
+}
+/*------------------write/update------------------*/
+.content_box .view_mode {
+	float:left;
+	width:200px;
+	height:30px;
+}
+.content_box .view_mode div {
+	border:1px solid #bebebe;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+    position: relative;
+    float:left;
+	height:30px;
+}
+.content_box .view_mode #editor {
+	width:40px;
+	cursor:pointer;
+}
+.content_box .view_mode #preview {
+	width:65px;
+	cursor:pointer;
+}
+.content_box .view_mode a {
+    position: absolute;
+	font-size:13px;
+	color:#323232;
+	left:5px;
+	bottom:4px;
+	text-decoration:none;
+}
+.content_box .select_box {
+    position: relative;
+	float:right;
+	width: 120px;
+    height: 25px;
+    background: url(/rootWiki/resources/images/arrow.png) 100px center no-repeat;
+    border: 1px solid #E9DDDD;
+}
+.content_box .select_box label {
+    position: absolute;
+    font-size: 11px;
+    color: #a97228;
+    top: 8px;
+    left: 12px;
+    letter-spacing: 1px;
+}
+.content_box .select_box #purpose {
+	width: 100%;
+    height: 30px;
+    min-height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.content_box .c_content .edit_box {
+	border:1px solid #bebebe;
+	width:858px;
+	height:620px;
+	margin-top:51px;
+	padding:8px;
+	overflow:auto;
+}
+.content_box .c_content .edit_box textarea {
+	border:none;
+	outline: none;
+}
+.content_box .exam_box {
+	width:480px;
+	height:290px;
+}
+.content_box .exam_box .exam_arrow {
+	float:left;
+	width:50px;
+	height:50px;
+	margin:50px;
+	text-align:center;
+}
+.content_box .exam_box .exam_left {
+	float:left;
+	width:160px;
+	height:100px;
+	margin-top:30px;
+	padding:10px;
+	background-color:#D7F1FA;
+}
+.content_box .exam_box .exam_right {
+	float:left;
+	width:160px;
+	height:230px;
+	padding:10px;
+	background-color:#D7F1FA;
+}
+
+/*------------------reply------------------*/
+.content_box .reply {
+	margin-top:100px;
+}
+.reply table {width:80%;}
+.reply .size{font-size:80%;} /* 날짜,수정,삭제 글씨크기 */
+.reply .idsize{font-weight: bold; font-size:100%;} /* 아이디 글자크기, 글씨 진하게 */
+.reply .writesize{font-size:90%;}	/* 댓글 글씨크기 */
+
+.reply .wrap {        /*  글자수 제한 카운터 css */
+   width: 500px;
+   height: auto;
+   position: relative;
+   display: inline-block;
+   padding:20px;
+}
+.reply .wrap textarea {
+    width: 100%;
+    resize: none;
+    min-height: 4.5em;
+    line-height:1.6em;
+    max-height: 9em;
+}
+.reply .wrap span {
+    position: absolute;
+    bottom: 15px;
+    right: 5px;
+}
+.reply .reply_page {
+	float:left;
+	width:30px;
+	text-align:right;
+	cursor:pointer;
+}
+.reply #counter {
+  background:rgba(255,0,0,0.5);
+  border-radius: 0.5em;
+  padding: 0 .5em 0 .5em;
+	  font-size: 0.75em;
+}
+.reply .size .edit_button {
+	border:0;
+	background: #ddd;
+	padding: 3px 4px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #000;
+	font-size: 10pt;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-left:4px;
+	outline: none;
+	cursor:pointer;
+}

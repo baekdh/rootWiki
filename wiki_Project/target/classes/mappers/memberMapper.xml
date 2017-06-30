@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.root.mapper.MemberMapper">
+
+	<insert id="insertMember" parameterType="MemberVO">
+		insert into member (memberid, memberpw, membername, tel, email, memberlevel)
+		values (#{memberid}, #{memberpw}, #{membername}, #{tel}, #{email}, 0)
+	</insert>
+	
+	<select id="getMember" parameterType="MemberVO" resultType="MemberVO">
+		select * from member where memberid = #{memberid} and memberpw = #{memberpw}
+	</select>
+
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*) from member where memberid = #{memberid}
+	</select>
+	
+	<select id="adminCheck" parameterType="String" resultType="int">
+		select memberlevel from member where memberid = #{memberid}
+	</select>
+	
+	<delete id="withdraw" parameterType="String" >
+		delete from member where memberid = #{memberid} and memberlevel = 0
+	</delete>
+	
+	<insert id="blockMember" parameterType="String">
+		insert into blockmember (blockno, memberid, blockdate)
+		values (block_seq.nextval, #{memberid}, sysdate)
+	</insert>
+	
+	<insert id="blockIp" parameterType="String">
+		insert into blockmember (blockno, ip, blockdate)
+		values (block_seq.nextval, #{ip}, sysdate)
+	</insert>
+	
+	<select id="blockIDCheck" parameterType="String" resultType="int">
+		select count(*) from blockmember where memberid = #{memberid}
+	</select>
+	
+</mapper>
