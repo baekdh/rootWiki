@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="/rootWiki/resources/css/rootstyle.css">
+<link rel="stylesheet" type="text/css"	href="/rootWiki/resources/css/rootstyle.css">
+<link rel="icon" type="image/png"  href="/resources/images/rootwiki_icon.png"/>
 <script type="text/javascript" src="/rootWiki/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){

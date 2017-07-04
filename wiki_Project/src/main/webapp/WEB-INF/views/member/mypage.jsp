@@ -9,8 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="../resources/css/rootstyle.css">
+<link rel="stylesheet" type="text/css"	href="../resources/css/rootstyle.css">
+<link rel="icon" type="image/png"  href="/resources/images/rootwiki_icon.png"/>
 <script type="text/javascript">
 	function withdrawClick() {
 		if(confirm("탈퇴하시겠습니까?")) {

@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>ROOT WIKI 검색</title>
 <link rel="stylesheet" type="text/css" href="/rootWiki/resources/css/rootstyle.css">
+<link rel="icon" type="image/png"  href="/resources/images/rootwiki_icon.png"/>
 <script type="text/javascript">
 	function writeBoard() {
 		location.href = 'write?title=${search}';
