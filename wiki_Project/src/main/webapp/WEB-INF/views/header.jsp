@@ -70,7 +70,7 @@
 					<header class="login-container"> <span
 						class="login-button login-display-topright"
 						onclick="document.getElementById('id01').style.display='none'">×</span>
-					<h2>Root Wiki Login</h2>
+					<h2 style="text-align:left">Root Wiki Login</h2>
 					</header>
 					<div>
 						<jsp:include page="member/login.jsp"/>
