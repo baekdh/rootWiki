@@ -131,8 +131,10 @@ public class MemberController {
 	public String mypage(HttpServletRequest request) {
 		logger.info("mypage");
 		MemberVO memberinfo = (MemberVO)request.getSession().getAttribute("user");
+		//오류 수정 : 마이페이지에서 로그아웃 시 404에러 발생 
+		//        -> return "redirect:/"; 로 해결
 		if(memberinfo == null) {
-			return "/";
+			return "redirect:/";
 		}
 		if(memberinfo.getMemberlevel() == 1) {
 			return "member/admin_page";
