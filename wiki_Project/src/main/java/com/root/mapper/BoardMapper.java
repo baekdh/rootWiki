@@ -54,6 +54,4 @@ public interface BoardMapper {
 	
 	//Ãß°¡ 
 	void rollbackHit(int backupNo);
-	
-	
 }

@@ -18,7 +18,7 @@ $(document).ready(function(){
 	%>
 	var a = document.getElementById("preview");
 	a.style.border="2px solid #bebebe";
-	$("#editor").click(function(e) {
+	$("#edit").click(function(e) {
 		document.update_form.mode.value = 0;
 		document.update_form.action = "updateChange";
 		document.update_form.submit();
@@ -28,7 +28,7 @@ $(document).ready(function(){
 	%>
 	var b = document.getElementById("editor");
 	b.style.border="2px solid #bebebe";
-	$("#preview").click(function(e) {
+	$("#prev").click(function(e) {
 		document.update_form.mode.value = 1;
 		document.update_form.action = "updateChange";
 		document.update_form.submit();
@@ -36,13 +36,8 @@ $(document).ready(function(){
 	<%
 		}
 	%>
-	<%
-	int purp = (Integer)request.getAttribute("purp");
-	%>
     var select = $("select#purpose");
-    <%if(purp == 1) {%>
-    	select.siblings("label").text("오타수정");
-    <%}%>
+    
     select.change(function(){
         var select_name = $(this).children("option:selected").text();
         $(this).siblings("label").text(select_name);
@@ -78,7 +73,7 @@ function resetBoard() {
 				<label for="purpose">정보수정</label> <select name="purpose"
 					id="purpose">
 					<option>정보수정</option>
-					<option<%if(purp==1) {%> selected="selected" <%}%>>오타수정</option>
+					<option>오타수정</option>
 				</select>
 			</div>
 			<div class="c_content" style="margin-top: 20px;">

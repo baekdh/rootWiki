@@ -63,6 +63,7 @@
 			   regdate, memberID, boardNo
 				from backupBoard
 				where boardNo = #{boardNo}
+				and (purpose='정보수정' or purpose='롤백')
 				order by backupNo desc
 	</select>
 	
@@ -71,6 +72,7 @@
 			   regdate, memberID, boardNo
 				from backupBoard
 				where title like '%'||#{search}||'%'
+				and (purpose='정보수정' or purpose='롤백')
 				order by backupNo desc
 	</select>
 	
@@ -167,6 +169,5 @@
 		set h_backupNo = 0
 		where h_backupNo = #{backupNo}
 	</update>
-	
 	
 </mapper>

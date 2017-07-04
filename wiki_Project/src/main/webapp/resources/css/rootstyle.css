@@ -420,11 +420,9 @@ a:VISITED{
 }
 .content_box .view_mode #editor {
 	width:40px;
-	cursor:pointer;
 }
 .content_box .view_mode #preview {
 	width:65px;
-	cursor:pointer;
 }
 .content_box .view_mode a {
     position: absolute;

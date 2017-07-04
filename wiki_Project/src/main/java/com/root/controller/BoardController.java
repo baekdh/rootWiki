@@ -66,7 +66,6 @@ public class BoardController {
 		BoardVO vo = new BoardVO();
 		vo.setTitle(request.getParameter("title"));
 		model.addAttribute("boardVO", vo);
-		model.addAttribute("purp", 0);
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
@@ -94,14 +93,9 @@ public class BoardController {
 		} catch(Exception e) {}
 		boardInfo.setIp(ip);
 		boardInfo.setContent(service.quotParser(boardInfo.getContent()));
-		
 		service.writeBoard(boardInfo);
-		logger.info("writeAction - boardInfo(after) : " + boardInfo);
 		
-		BackupBoardVO backupInfo = new BackupBoardVO();
-		backupInfo.setBoardNo(boardInfo.getBoardNo());
-		backupInfo.setPurpose("생성");
-		service.writeBackupBoard(backupInfo);
+		logger.info("writeAction - boardInfo(after) : " + boardInfo);
 		
 		request.setAttribute("boardNo", boardInfo.getBoardNo());
 		
@@ -111,19 +105,12 @@ public class BoardController {
 	@RequestMapping(value = "writeChange", method = RequestMethod.POST)
 	public String writeChange(BoardVO boardvo, HttpServletRequest request, Model model) throws Exception {
 		int mode = Integer.parseInt(request.getParameter("mode"));
-		String purpose = request.getParameter("purpose");
-		logger.info("wc - mode : " + mode);
+		logger.info("uc - mode : " + mode);
 		if(mode == 1) {
 			boardvo.setContent(service.quotParser(boardvo.getContent()));
 			String prevStr = service.totalParser(boardvo.getContent());
 			model.addAttribute("mode", "prev");
 			model.addAttribute("prevStr", prevStr);
-		}
-		if(purpose.equals("오타수정")) {
-			model.addAttribute("purp", 1);
-			logger.info("wc - purp : 1" );
-		} else {
-			model.addAttribute("purp", 0);
 		}
 		model.addAttribute("boardVO", boardvo);
 		return "board/write";
@@ -225,24 +212,24 @@ public class BoardController {
 		
 		BackupBoardVO backupvo = service.getBackupBoard(backupNo);
 		logger.info("backupvo="+backupvo);
+		//최신글 백업보드에 저장
+		int boardNo = backupvo.getBoardNo();	
+		backupvo.setPurpose("롤백");
+		service.writeBackupBoard(backupvo);
 
-		// 추가 : 현재글의 hit정보 backupboard에 저장
+		// 추가 : 현재글의 hit정보 backupbaord에 저장
 		List<BackupBoardVO> backupInfo2 = service.getBackupList(backupvo.getBoardNo());
 		service.setBackupHit(backupInfo2.get(0));
 		logger.info("백업에 저장 완료 - " + backupvo);
 		
 		//백업보드에서 선택한 글을 보드에 업데이트
+		
 		service.rollback(backupvo);
 		logger.info("본문수정 완료");
 		
 		// 추가 : 롤백된 글의 hit 정보 가져오기 -> hit_table의 h_backupNo = 0 으로 변경
 		service.rollbackHit(backupNo);
 		logger.info("hit정보 수정 완료");
-		
-		//백업보드에 저장
-		int boardNo = backupvo.getBoardNo();	
-		backupvo.setPurpose("롤백");
-		service.writeBackupBoard(backupvo);
 		
 		model.addAttribute("boardNo", boardNo);
 
@@ -263,7 +250,6 @@ public class BoardController {
 	public void update(HttpServletRequest request,Model model) throws Exception{
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		model.addAttribute("boardVO", service.getBoard(boardNo));
-		model.addAttribute("purp", 0);
 	}
 	
 	//추가
@@ -277,18 +263,22 @@ public class BoardController {
 			request.setAttribute("msg", "블락된 IP입니다.");
 			return "main";
 		}
+		BackupBoardVO backupInfo = backvo;
+		
+		service.writeBackupBoard(backupInfo);
+		logger.info("updateAction - backupInfo : " + backupInfo);
+
+		BoardVO boardInfo = vo;
 		
 		//--------------------------------------------------------------------
 		//추가 : purpose == 정보수정 일 경우만 히트테이블에 백업보드번호 저장
 		//추가 : 수정하려는 board의 hit/nonhit 값을 backupboard에 저장 
 		//백업보드no를 이용하여 히트 테이블에 백업보드번호 저장
-		if(backvo.getPurpose().equals("정보수정")){
-			List<BackupBoardVO> backupInfo2 = service.getBackupList(backvo.getBoardNo());
+		if(backupInfo.getPurpose().equals("정보수정")){
+			List<BackupBoardVO> backupInfo2 = service.getBackupList(boardInfo.getBoardNo());
 			service.setBackupHit(backupInfo2.get(0));
 		}
 		//--------------------------------------------------------------------
-		
-		BoardVO boardInfo = vo;
 		
 		try {
 			MemberVO userinfo = (MemberVO)request.getSession().getAttribute("user");
@@ -299,9 +289,6 @@ public class BoardController {
 		boardInfo.setContent(service.quotParser(boardInfo.getContent()));
 		service.updateBoard(boardInfo); 
 		logger.info("boardInfo(after) : " + boardInfo);
-
-		service.writeBackupBoard(backvo);
-		logger.info("updateAction - backupInfo : " + backvo);
 		
 		request.setAttribute("boardVO", service.getBoard(boardInfo.getBoardNo()));
 		
@@ -311,19 +298,12 @@ public class BoardController {
 	@RequestMapping(value = "updateChange", method = RequestMethod.POST)
 	public String updateChange(BoardVO boardvo, HttpServletRequest request, Model model) throws Exception {
 		int mode = Integer.parseInt(request.getParameter("mode"));
-		String purpose = request.getParameter("purpose");
 		logger.info("uc - mode : " + mode);
 		if(mode == 1) {
 			boardvo.setContent(service.quotParser(boardvo.getContent()));
 			String prevStr = service.totalParser(boardvo.getContent());
 			model.addAttribute("mode", "prev");
 			model.addAttribute("prevStr", prevStr);
-		}
-		if(purpose.equals("오타수정")) {
-			model.addAttribute("purp", 1);
-			logger.info("uc - purp : 1" );
-		} else {
-			model.addAttribute("purp", 0);
 		}
 		logger.info("uc - content : " + boardvo.getContent());
 		model.addAttribute("boardVO", boardvo);

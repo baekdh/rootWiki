@@ -10,7 +10,5 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-
-<a href="/rootWiki/main">Go to main!!!!</a>
 </body>
 </html>
