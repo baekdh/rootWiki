@@ -18,7 +18,7 @@
 <body>
 	<!-- 수정 : div 클래스 수정 -->
 	<div class="loginbody">
-		<form:form method="post" commandName="memberVO" action="/rootWiki/login">
+		<form:form method="post" commandName="memberVO" action="/login">
 			<div class="login_box">
 				<div class="input_box">
 					<input type="text" name="memberid" value="아이디" onfocus="input_focus(this);">
@@ -29,7 +29,7 @@
 				<span class="btn_login">
 					<input class="input_button" type="submit" value="로그인" id="login_btn">
 				</span>
-				<a href="/rootWiki/regist">회원가입</a>
+				<a href="/regist">회원가입</a>
 			</div>
 		</form:form>
 	</div>

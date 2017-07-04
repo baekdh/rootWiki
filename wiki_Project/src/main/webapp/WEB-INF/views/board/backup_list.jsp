@@ -12,7 +12,7 @@
 			bSearchClick();
 	}
 	function bSearchClick() {
-		var url_front = '/rootWiki/board/historyOpen?bSearch_str=';
+		var url_front = '/board/historyOpen?bSearch_str=';
 		var url_back = document.getElementById('bSearch_str');
 		location.href = url_front.concat(url_back.value);
 	}

@@ -66,7 +66,7 @@
 			<input class="input_button" type="button" value="로그인" onclick="loginClick()">
 		</c:if>
 		<c:if test="${userid ne null}" >
-			<a href="/rootWiki/mypage">마이페이지</a>
+			<a href="/mypage">마이페이지</a>
 			<input class="input_button" type="button" value="로그아웃" onclick="logoutClick()">
 		</c:if>
 	</p>

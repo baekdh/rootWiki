@@ -28,8 +28,8 @@ public class MemberController {
 	@Inject
 	private MemberService service;
 	
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void main(Model model, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String main(Model model, HttpServletRequest request) throws Exception {
 		try {
 			MemberVO userinfo = (MemberVO)request.getSession().getAttribute("user");
 			logger.info("main - " + userinfo.toString());
@@ -38,6 +38,8 @@ public class MemberController {
 			logger.info("catch");
 			model.addAttribute("userid", null);
 		}
+		
+		return "main";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -107,7 +109,7 @@ public class MemberController {
 		
 		service.insertMember(memberVO);
 		
-		return "redirect:main"; //수정: 주소변경
+		return "redirect:/"; //수정: 주소변경
 	}
 	
 	@RequestMapping(value = "/idCheck")
@@ -130,7 +132,7 @@ public class MemberController {
 		logger.info("mypage");
 		MemberVO memberinfo = (MemberVO)request.getSession().getAttribute("user");
 		if(memberinfo == null) {
-			return "main";
+			return "/";
 		}
 		if(memberinfo.getMemberlevel() == 1) {
 			return "member/admin_page";

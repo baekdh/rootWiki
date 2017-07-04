@@ -30,7 +30,7 @@
 		});
 	});
 	function searchClick() {
-		var url_front = '/rootWiki/board/search?search_str=';
+		var url_front = '/board/search?search_str=';
 		var url_back = document.getElementById('search_str1');
 		if(url_back.value.trim() != "") {
 			location.href = url_front.concat(url_back.value);
@@ -40,13 +40,13 @@
 	// 수정
 	function loginClick() {
 		document.getElementById('id01').style.display = 'block';
-		//location.href = '/rootWiki/login';
+		//location.href = '/login';
 	}
 	function logoutClick() {
-		location.href = '/rootWiki/logout';
+		location.href = '/logout';
 	}
 	function goHome(){
-		location.href='/rootWiki/main';
+		location.href='/';
 	}
 </script>
 </head>
@@ -60,7 +60,7 @@
 			<input type="text" id="search_str1">
 			<input type="button" value="검색" id="search_btn1" onclick="searchClick()"> &nbsp;&nbsp;
 			<%if(userid != null){%>
-						<a href="/rootWiki/mypage">마이페이지</a>
+						<a href="/mypage">마이페이지</a>
 				<input class="input_button" type="button" value="로그아웃" onclick="logoutClick()">
 				<%}else{%>
 				<input class="input_button" type="button" value="로그인" onclick="loginClick()">
