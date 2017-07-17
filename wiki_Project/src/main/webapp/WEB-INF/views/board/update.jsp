@@ -107,7 +107,7 @@ function resetBoard() {
 					내용2[[문서태그]]<br>
 				</div>
 				<div class="exam_arrow">
-					<img src="/rootWiki/resources/images/right_arrow.png" width="50px" height="50px">
+					<img src="/resources/images/right_arrow.png" width="50px" height="50px">
 				</div>
 				<div class="exam_right">
 					<h2>1. 주제목</h2><hr>

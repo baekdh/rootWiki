@@ -262,7 +262,7 @@ public class BoardServiceImpl implements BoardService {
 						}
 					}
 					if(nTagNo != 0)
-						sb.insert(nFront, "<a href='content?boardNo=" + nTagNo + "'>");
+						sb.insert(nFront, "<a href='content?boardNo=" + nTagNo + "&replyPage=1'>");
 					else
 						sb.insert(nFront, "<a href='javascript:void(0);'>");
 				} catch(Exception e) {
