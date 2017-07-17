@@ -6,9 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"	href="/rootWiki/resources/css/rootstyle.css">
+<link rel="stylesheet" type="text/css"	href="/resources/css/rootstyle.css">
 <link rel="icon" type="image/png"  href="/resources/images/rootwiki_icon.png"/>
-<script type="text/javascript" src="/rootWiki/resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 <%
@@ -81,7 +81,7 @@ $(document).ready(function(){
 				내용2[[문서태그]]<br>
 			</div>
 			<div class="exam_arrow">
-				<img src="/rootWiki/resources/images/right_arrow.png" width="50px" height="50px">
+				<img src="/resources/images/right_arrow.png" width="50px" height="50px">
 			</div>
 			<div class="exam_right">
 				<h2>1. 주제목</h2><hr>
