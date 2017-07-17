@@ -17,7 +17,7 @@
 	}else {
 %>
 	if(!confirm("작성한 문서를 확인하시겠습니까?")) {
-		location.href = "../main"
+		location.href = "/"
 	} else {
 		location.href = "content?boardNo=" + <%=request.getAttribute("boardNo")%> + "&replyPage=1"
 	}
