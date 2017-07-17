@@ -14,8 +14,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/rootWiki/resources/css/rootstyle.css">
-<script type="text/javascript" src="/rootWiki/resources/js/jquery-2.1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/rootstyle.css">
+<script type="text/javascript" src="/resources/js/jquery-2.1.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(document).keydown(function(event) {
@@ -54,7 +54,7 @@
 	<div id="header">
 		<div id="left_box">
 			<input type="hidden" name="user_state" value="true">
-			<a onclick="goHome()"><img width="250px;" height="50px;" alt="메인으로" src="/rootWiki/resources/images/mainwiki2.PNG" ></a>
+			<a onclick="goHome()"><img width="250px;" height="50px;" alt="메인으로" src="/resources/images/mainwiki2.PNG" ></a>
 		</div>
 		<div id="right_box">
 			<input type="text" id="search_str1">
